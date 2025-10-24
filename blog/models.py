@@ -11,4 +11,9 @@ class Post(models.Model):
         return f"{self.title}"
     
 class Comment(models.Model):
-    author = models.
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+
+    def __str__(self):
+        return f"{self.content[:30]}"
