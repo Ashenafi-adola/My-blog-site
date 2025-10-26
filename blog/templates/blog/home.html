@@ -1,10 +1,20 @@
 {% extends 'blog/base.html' %}
+{% load static %}
 {% block title %}
 homepage
 {% endblock %}
 
 {% block content %}
 <div>
-    
+    <nav>
+
+    </nav>
+    <div>
+        {% for post in posts %}
+            <img src="{% static post.title %}" alt="post">
+            <h5>{{post.title}}</h5>
+        {% endfor %}
+    </div>
+
 </div>
 {% endblock %}
