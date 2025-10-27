@@ -52,7 +52,7 @@ Signup
 <form action="" method="post">
     {% csrf_token %}
 
-    {% if page == register %}
+    {% if page == 'register' %}
         <h2>Signup</h2>
         {{form}}
         <button type="submit">Signup</button>
