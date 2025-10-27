@@ -67,9 +67,33 @@ def post(request):
 
 def view_post(request,pk):
     post = Post.objects.get(id=pk)
+    comments = Comment.objects.filter(post=post)
     form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.post = post
+            comment.save()
     context = {
         'post':post,
         'form':form,
+        'comments':comments,
     }
     return render(request, 'blog/post-view.html', context)
+
+def edit_post(request,pk):
+    post = Post.objects.get(id=pk)
+    form = PostForm(instance=post)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST,request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect(f'/view-post/{pk}')
+    context = {
+        'form':form,
+
+    }
+    return render(request, 'blog/post.html', context)

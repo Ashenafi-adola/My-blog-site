@@ -44,16 +44,22 @@
         <p>{{post.content}}</p>
         {% if request.user == post.author %}
             <div class="buttons">
-                <a href="{% url 'home' %}" class="edit-button" name="edit">Edit</a>
-                <a class="delete-button" name="delete">Delete</a>
+                <a href="{% url 'edit' post.id %}" class="edit-button" name="edit">Edit</a>
+                <a href="{% url '' %}" class="delete-button" name="delete">Delete</a>
             </div>
         {% endif %}
-        <form action="" method="post">
-            {%csrf_token%}
-            {{form}}
-            <button>Comment</button>
-        </form>
-        
+        {% if user.is_authenticated %}
+            <form action="" method="post">
+                {%csrf_token%}
+                {{form}}
+                <button>Comment</button>
+            </form>
+        {% endif %}
+        {% for comment in comments %}
+            <p>{{comment}}</p>
+            <small>{{comment.author}}</small>
+            <hr>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

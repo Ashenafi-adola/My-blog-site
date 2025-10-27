@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +8,12 @@
 </head>
 <body>
     <nav>
-        <a href="">HOME</a>
+        <h1>BLOG</h1>
+        <img src="{{ request.user.photo.url }}" alt="profile">
+        <small>{{request.user}}</small>
+        <a href="{% url 'home' %}">HOME</a>
         <a href="{% url 'post' %}">ADD POST</a>
         <a href="{% url 'signout' %}">logout</a>
-        <small>{{request.user}}</small>
     </nav>
     <hr>
     {% block content %}
