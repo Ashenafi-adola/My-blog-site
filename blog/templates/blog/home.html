@@ -5,14 +5,37 @@ homepage
 {% endblock %}
 
 {% block content %}
+<style>
+    nav{
+        height: 50px;
+    }
+    .postphoto{
+        width: 100%;
+    }
+    .posts{
+        width: 100%;
+    }
+    .post{
+        display: inline-block;
+        width: 200px;
+        height: 300px;
+        border: solid black 1px;
+        vertical-align: top;
+    }
+</style>
 <div>
     <nav>
-
+        <a href="">HOME</a>
+        <a href="">ADD POST</a>
     </nav>
-    <div>
+    <hr>
+    <div class="posts">
         {% for post in posts %}
-            <img src="{% static post.title %}" alt="post">
-            <h5>{{post.title}}</h5>
+            <div class="post">
+                <img src="{{ post.photo.url }}" alt="post" class="postphoto">
+                <h5>{{post.title}}</h5>
+                <p>{{post.content}}</p>
+            </div>
         {% endfor %}
     </div>
 

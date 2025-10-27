@@ -1,11 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sign in / sign up</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Signup
+{% endblock %}
+
+{% block content %}
+<style>
+    form{
+        width: 350px;
+        padding: 30px;
+        background: #f8f5f5;
+        margin: 10% auto;
+        border-radius: 5px;
+        border: solid rgb(232, 232, 232) 1px;
+        box-shadow: 1px 2px 3px;
+    }
+    form h2{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form ul{
+        display: none;
+    }
+    form input{
+        width: 200px;
+        height: 30px;
+        border: 1px solid #ddd;
+        margin: 10px 0;
+        padding-left: 10px;
+    }
+    form label{
+        font-weight: bold;
+        width: 100px;
+    }
+    form button{
+        width: 120px;
+        height: 40px;
+        background: #33ff00;
+        color: #0d0b0b;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        border: none;
+        border-radius: 10px;
+        
+    }
+    .helptext{
+        display: none;
+    }
+</style>
+<form action="" method="post">
+    {% csrf_token %}
+
+    {% if page == register %}
+        <h2>Signup</h2>
+        {{form}}
+        <button type="submit">Signup</button>
+        <p>Already Have an acount Signin <a href="">Here!</a></p>
+    {% else %}
+        <h2>Signin</h2>
+        <Label for="username" >Username:<input type="text" name="username" class="username"></Label>
+        <p><label for="password">Password: <input type="password" name="password" class="password"></label></p>
+        <button type="submit">Signin</button>
+        <p>Don't Have an acount Create <a href="{% url 'register' %}">Here!</a></p>
+    {% endif %}
+</form>
+{% endblock %}
