@@ -8,5 +8,5 @@ urlpatterns = [
     path("signout", views.signout, name="signout"),
     path("view-post/<int:pk>", views.view_post, name="viewpost"),
     path("edit/<int:pk>", views.edit_post, name="edit"),
-    path("delete/<int:pk>", views.delete_post, name="delete")
+    path("delete/<int:pk>/<int:id>", views.delete_post, name="delete")
 ]

@@ -37,6 +37,7 @@
 <div>
     <div class="post">
         <p>posted by @{{post.author}}</p>
+        <small>posted on {{post.publication_date}}</small>
         <div class="photo">
             <img src="{{ post.photo.url }}" alt="post" class="postphoto">
         </div>
@@ -45,7 +46,7 @@
         {% if request.user == post.author %}
             <div class="buttons">
                 <a href="{% url 'edit' post.id %}" class="edit-button" name="edit">Edit</a>
-                <a href="{% url 'delete' post.id %}" class="delete-button" name="delete">Delete</a>
+                <a href="{% url 'delete' post.id post.id %}" class="delete-button" name="delete">Delete</a>
             </div>
         {% endif %}
         {% if user.is_authenticated %}
@@ -58,6 +59,13 @@
         {% for comment in comments %}
             <p>{{comment}}</p>
             <small>{{comment.author}}</small>
+            <small>{{comment.commented_at}}</small>
+            {% if request.user == comment.author %}
+            <div class="buttons">
+                <a href="{% url 'edit' comment.id %}" class="edit-button" name="edit">Edit</a>
+                <a href="{% url 'delete' comment.id post.id %}" class="delete-button" name="delete">Delete</a>
+            </div>
+            {% endif %}
             <hr>
         {% endfor %}
     </div>

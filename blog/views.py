@@ -67,7 +67,7 @@ def post(request):
 
 def view_post(request,pk):
     post = Post.objects.get(id=pk)
-    comments = Comment.objects.filter(post=post)
+    comments = Comment.objects.filter(post=post).order_by('-commented_at')
     form = CommentForm()
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -76,6 +76,7 @@ def view_post(request,pk):
             comment.author = request.user
             comment.post = post
             comment.save()
+            return redirect(f'/view-post/{pk}')
     context = {
         'post':post,
         'form':form,
@@ -98,10 +99,18 @@ def edit_post(request,pk):
     }
     return render(request, 'blog/post.html', context)
 
-def delete_post(request,pk):
+def delete_post(request,pk,id):
     post = Post.objects.get(id=pk)
     if request.method == 'POST':
         post.delete()
         return redirect('home')
 
-    return render(request, 'blog/delete-post.html', {})
+    return render(request, 'blog/delete.html', {})
+
+def delete_post(request,pk,id):
+    comment = Comment.objects.get(id=pk)
+    if request.method == 'POST':
+        comment.delete()
+        return redirect(f'/view-post/{id}')
+
+    return render(request, 'blog/delete.html', {})
