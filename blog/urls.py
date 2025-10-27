@@ -5,5 +5,6 @@ urlpatterns = [
     path("post", views.post, name="post"),
     path("signin", views.signin, name="signin"),
     path("register", views.register, name="register"),
-    path("signout", views.signout, name="signout")
+    path("signout", views.signout, name="signout"),
+    path("view-post/<int:pk>", views.view_post, name="viewpost")
 ]

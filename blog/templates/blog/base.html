@@ -6,6 +6,13 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
+    <nav>
+        <a href="">HOME</a>
+        <a href="{% url 'post' %}">ADD POST</a>
+        <a href="{% url 'signout' %}">logout</a>
+        <small>{{request.user}}</small>
+    </nav>
+    <hr>
     {% block content %}
 
     {% endblock %}

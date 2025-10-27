@@ -21,12 +21,15 @@ homepage
         height: 220px;
         overflow-y: hidden;
         margin: 2px;
+        border: solid rgb(197, 197, 197) 1px;
+        box-shadow: 1px 1px 3px;
     }
     .post{
         display: inline-block;
         width: 200px;
         height: 320px;
-        border: solid black 1px;
+        border: solid rgb(197, 197, 197) 1px;
+        box-shadow: 1px 2px 4px;
         vertical-align: top;
         padding: 3px;
     }
@@ -34,6 +37,7 @@ homepage
         margin: 2px;
         border: solid rgb(226, 226, 226) 1px;
         padding: 4px;
+        font-family: Arial, Helvetica, sans-serif;
     }
     .edit-button{
         background: #1100ff;
@@ -51,14 +55,12 @@ homepage
         padding: 2px;
         cursor: pointer;
     }
+    .buttons{
+        margin: 5px;
+        padding: 5px;
+    }
 </style>
 <div>
-    <nav>
-        <a href="">HOME</a>
-        <a href="{% url 'post' %}">ADD POST</a>
-        <a href="{% url 'signout' %}">logout</a>
-        <small>{{request.user}}</small>
-    </nav>
     <hr>
     <div class="posts">
         {% for post in posts %}
@@ -66,12 +68,8 @@ homepage
                 <div class="photo">
                     <img src="{{ post.photo.url }}" alt="post" class="postphoto">
                 </div>
-                <h5>{{post.title}}</h5>
-                <p>{{post.show}}</p>
-                {% if request.user == post.author %}
-                    <a href="{% url 'home' %}" class="edit-button" name="edit">Edit</a>
-                    <a class="delete-button" name="delete">Delete</a>
-                {% endif %}
+                <h5><a href="{% url 'viewpost' post.id %}">{{post.title}}</a></h5>
+                <small>{{post.show}}</small>
             </div>
         {% endfor %}
     </div>

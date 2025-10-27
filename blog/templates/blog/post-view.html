@@ -1,0 +1,59 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}View Post{% endblock %}
+{% block content %}
+<style>
+     .postphoto{
+        width: 100%;
+    }
+
+    .posts{
+        width: 100%;
+    }
+    .photo{
+        height: auto;
+        overflow-y: hidden;
+        margin: 2px;
+        border: solid rgb(197, 197, 197) 1px;
+        box-shadow: 1px 2px 4px;
+    }
+    .post{
+        display: inline-block;
+        width: 600px;
+        height: auto;
+        border: solid rgb(197, 197, 197) 1px;
+        vertical-align: top;
+        padding: 3px;
+        box-shadow: 1px 2px 4px;
+    }
+    #id_content{
+        height: 40px;
+        width: 99%;
+    }
+    label{
+        display: none;
+    }
+</style>
+<div>
+    <div class="post">
+        <p>posted by @{{post.author}}</p>
+        <div class="photo">
+            <img src="{{ post.photo.url }}" alt="post" class="postphoto">
+        </div>
+        <h5><a href="{% url 'viewpost' post.id %}">{{post.title}}</a></h5>
+        <p>{{post.content}}</p>
+        {% if request.user == post.author %}
+            <div class="buttons">
+                <a href="{% url 'home' %}" class="edit-button" name="edit">Edit</a>
+                <a class="delete-button" name="delete">Delete</a>
+            </div>
+        {% endif %}
+        <form action="" method="post">
+            {%csrf_token%}
+            {{form}}
+            <button>Comment</button>
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

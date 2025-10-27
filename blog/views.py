@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from .models import Post, Comment
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
@@ -41,7 +41,7 @@ def signout(request):
     logout(request)
     return redirect('signin')
 
-@login_required(login_url='signin')
+
 def home(request):
     posts = Post.objects.all()
     context = {
@@ -49,6 +49,8 @@ def home(request):
     }
     return render(request, 'blog/home.html',context)
 
+
+@login_required(login_url='signin')
 def post(request):
     form = PostForm()
     if request.method == "POST":
@@ -62,3 +64,12 @@ def post(request):
         "form":form,
     }
     return render(request, 'blog/post.html',context)
+
+def view_post(request,pk):
+    post = Post.objects.get(id=pk)
+    form = CommentForm()
+    context = {
+        'post':post,
+        'form':form,
+    }
+    return render(request, 'blog/post-view.html', context)
