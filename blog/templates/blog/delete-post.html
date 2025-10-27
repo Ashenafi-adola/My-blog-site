@@ -1,5 +1,8 @@
 {% extends 'blog/base.html' %}
 {% block title %}Delet Post{% endblock %}
 {% block content %}
-
+<form action="" method="post">
+    {% csrf_token %}
+    <button type="submit">Confirme</button>
+</form>
 {% endblock %}

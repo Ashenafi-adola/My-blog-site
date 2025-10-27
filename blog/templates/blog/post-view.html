@@ -45,7 +45,7 @@
         {% if request.user == post.author %}
             <div class="buttons">
                 <a href="{% url 'edit' post.id %}" class="edit-button" name="edit">Edit</a>
-                <a href="{% url '' %}" class="delete-button" name="delete">Delete</a>
+                <a href="{% url 'delete' post.id %}" class="delete-button" name="delete">Delete</a>
             </div>
         {% endif %}
         {% if user.is_authenticated %}
