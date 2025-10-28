@@ -3,71 +3,100 @@
 {% block title %}View Post{% endblock %}
 {% block content %}
 <style>
-     .postphoto{
-        width: 100%;
+    .main{
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        position: fixed;
     }
-
-    .posts{
+     .postphoto{
         width: 100%;
     }
     .photo{
         height: auto;
-        overflow-y: hidden;
         margin: 2px;
         border: solid rgb(197, 197, 197) 1px;
         box-shadow: 1px 2px 4px;
     }
     .post{
-        display: inline-block;
-        width: 600px;
+        overflow-y: scroll;
+        border: solid rgb(197, 197, 197) 1px;
+        padding: 3px;
+        box-shadow: 1px 2px 4px;
+    }
+    .post-content{
+        height: 150%;
+    }
+    #id_content{
+        height: 40px;
+        width: 99%;
+    }
+    .comment-section{
         height: auto;
         border: solid rgb(197, 197, 197) 1px;
         vertical-align: top;
         padding: 3px;
         box-shadow: 1px 2px 4px;
     }
-    #id_content{
-        height: 40px;
-        width: 99%;
+    .comments{
+        overflow-y: scroll;
+        padding: 3px;
+        border: solid black 2px;
+        height: 100%;
+    }
+    .comment-content{
+        border: solid rgb(197, 197, 197) 1px;
+        height: calc(100%);
+        margin: 5px;
+        padding: 5px;
     }
     label{
         display: none;
     }
 </style>
-<div>
+<div class="main">
     <div class="post">
-        <p>posted by @{{post.author}}</p>
-        <small>posted on {{post.publication_date}}</small>
-        <div class="photo">
-            <img src="{{ post.photo.url }}" alt="post" class="postphoto">
-        </div>
-        <h5><a href="{% url 'viewpost' post.id %}">{{post.title}}</a></h5>
-        <p>{{post.content}}</p>
-        {% if request.user == post.author %}
-            <div class="buttons">
-                <a href="{% url 'edit' post.id %}" class="edit-button" name="edit">Edit</a>
-                <a href="{% url 'delete' post.id post.id %}" class="delete-button" name="delete">Delete</a>
+        <div class="post-content">
+            <p>posted by @{{post.author}}</p>
+            <small>posted on {{post.publication_date}}</small>
+            <div class="photo">
+                <img src="{{ post.photo.url }}" alt="post" class="postphoto">
             </div>
-        {% endif %}
-        {% if user.is_authenticated %}
-            <form action="" method="post">
-                {%csrf_token%}
-                {{form}}
-                <button>Comment</button>
-            </form>
-        {% endif %}
-        {% for comment in comments %}
-            <p>{{comment}}</p>
-            <small>{{comment.author}}</small>
-            <small>{{comment.commented_at}}</small>
-            {% if request.user == comment.author %}
-            <div class="buttons">
-                <a href="{% url 'edit' comment.id %}" class="edit-button" name="edit">Edit</a>
-                <a href="{% url 'delete' comment.id post.id %}" class="delete-button" name="delete">Delete</a>
-            </div>
+            <h5><a href="{% url 'viewpost' post.id %}">{{post.title}}</a></h5>
+            <p>{{post.content}}</p>
+            {% if request.user == post.author %}
+                <div class="buttons">
+                    <a href="{% url 'edit' post.id %}" class="edit-button" name="edit">Edit</a>
+                    <a href="{% url 'delete' post.id post.id %}" class="delete-button" name="delete">Delete</a>
+                </div>
             {% endif %}
-            <hr>
-        {% endfor %}
+        </div>
+    </div>
+    <div class="comment-section">
+            {% if user.is_authenticated %}
+                <form action="" method="post">
+                    {%csrf_token%}
+                    {{form}}
+                    <button>Comment</button>
+                </form>
+            {% endif %}
+        <div class="comments">
+            <div class="comment-content">
+                {% for comment in comments %}
+                    <small>{{comment}}</small>
+                    <div>
+                        <small>@{{comment.author}} commented at </small>
+                        <small>{{comment.commented_at}}</small>
+                    </div>
+                    {% if request.user == comment.author %}
+                    <div class="buttons">
+                        <a href="{% url 'edit' comment.id %}" class="edit-button" name="edit">Edit</a>
+                        <a href="{% url 'delete' comment.id post.id %}" class="delete-button" name="delete">Delete</a>
+                    </div>
+                    {% endif %}
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

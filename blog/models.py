@@ -17,7 +17,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
-    commented_at = models.TimeField(auto_now_add=True, null=True)
+    commented_at = models.DateTimeField(auto_now_add=True, null=True)
     
     def __str__(self):
         return f"{self.content[:30]}"
