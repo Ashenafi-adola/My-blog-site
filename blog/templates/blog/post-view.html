@@ -24,7 +24,7 @@
         box-shadow: 1px 2px 4px;
     }
     .post-content{
-        height: 150%;
+        
     }
     #id_content{
         height: 40px;
@@ -61,12 +61,11 @@
             <div class="photo">
                 <img src="{{ post.photo.url }}" alt="post" class="postphoto">
             </div>
-            <h5><a href="{% url 'viewpost' post.id %}">{{post.title}}</a></h5>
             <p>{{post.content}}</p>
             {% if request.user == post.author %}
                 <div class="buttons">
-                    <a href="{% url 'edit' post.id %}" class="edit-button" name="edit">Edit</a>
-                    <a href="{% url 'delete' post.id post.id %}" class="delete-button" name="delete">Delete</a>
+                    <a href="{% url 'edit-post' post.id %}" class="edit-button" name="edit">Edit</a>
+                    <a href="{% url 'delete-post' post.id %}" class="delete-button" name="delete">Delete</a>
                 </div>
             {% endif %}
         </div>
@@ -89,8 +88,8 @@
                     </div>
                     {% if request.user == comment.author %}
                     <div class="buttons">
-                        <a href="{% url 'edit' comment.id %}" class="edit-button" name="edit">Edit</a>
-                        <a href="{% url 'delete' comment.id post.id %}" class="delete-button" name="delete">Delete</a>
+                        <a href="{% url 'edit-comment' comment.id post.id %}" class="edit-button" name="edit">Edit</a>
+                        <a href="{% url 'delete-comment' comment.id post.id %}" class="delete-button" name="delete">Delete</a>
                     </div>
                     {% endif %}
                     <hr>

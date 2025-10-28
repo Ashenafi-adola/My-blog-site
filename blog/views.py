@@ -99,7 +99,7 @@ def edit_post(request,pk):
     }
     return render(request, 'blog/post.html', context)
 
-def delete_post(request,pk,id):
+def delete_post(request,pk):
     post = Post.objects.get(id=pk)
     if request.method == 'POST':
         post.delete()
@@ -107,10 +107,27 @@ def delete_post(request,pk,id):
 
     return render(request, 'blog/delete.html', {})
 
-def delete_post(request,pk,id):
+def delete_comment(request,pk,id):
     comment = Comment.objects.get(id=pk)
     if request.method == 'POST':
         comment.delete()
         return redirect(f'/view-post/{id}')
 
     return render(request, 'blog/delete.html', {})
+
+def edit_comment(request,pk,id):
+    post = Post.objects.get(id=id)
+    comments = Comment.objects.filter(post=post).order_by('-commented_at')
+    comment = Comment.objects.get(id=pk)
+    form = CommentForm(instance=comment)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect(f'/view-post/{id}')
+    context = {
+        'post':post,
+        'form':form,
+        'comments':comments,
+    }
+    return render(request, 'blog/post-view.html', context)
