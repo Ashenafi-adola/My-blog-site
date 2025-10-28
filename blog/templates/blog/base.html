@@ -16,6 +16,10 @@
         <a href="{% url 'home' %}">HOME</a>
         <a href="{% url 'post' %}">ADD POST</a>
         <a href="{% url 'signout' %}">logout</a>
+        <form action="" method="get">
+            <input type="search" name="search">
+            <button type="submit">Search</button>
+        </form>
     </nav>
     <hr>
     {% block content %}

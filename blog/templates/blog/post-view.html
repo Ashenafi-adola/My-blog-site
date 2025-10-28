@@ -81,7 +81,7 @@
         <div class="comments">
             <div class="comment-content">
                 {% for comment in comments %}
-                    <small>{{comment}}</small>
+                    <small>{{comment.content}}</small>
                     <div>
                         <small>@{{comment.author}} commented at </small>
                         <small>{{comment.commented_at}}</small>
