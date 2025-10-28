@@ -22,17 +22,6 @@ Signup
     form ul{
         display: none;
     }
-    form input{
-        width: 200px;
-        height: 30px;
-        border: 1px solid #ddd;
-        margin: 10px 0;
-        padding-left: 10px;
-    }
-    form label{
-        font-weight: bold;
-        width: 100px;
-    }
     form button{
         width: 120px;
         height: 40px;
@@ -55,13 +44,19 @@ Signup
     {% if page == 'register' %}
         <h2>Signup</h2>
         {{form}}
-        <button type="submit">Signup</button>
+        <button type="submit" class="btn btn-primary">Signup</button>
         <p>Already Have an acount Signin <a href="{% url 'signin' %}">Here!</a></p>
     {% else %}
         <h2>Signin</h2>
-        <Label for="username" >Username:<input type="text" name="username" class="username"></Label>
-        <p><label for="password">Password: <input type="password" name="password" class="password"></label></p>
-        <button type="submit">Signin</button>
+        <div class="mb-3 mt-3">
+            <label for="username" class="form-label">Username:</label>
+            <input type="text" class="form-control" id="email" name="username" placeholder="Username" class="username">
+        </div>
+        <div class="mb-3">
+            <label for="pwd" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Signin</button>
         <p>Don't Have an acount Create <a href="{% url 'register' %}">Here!</a></p>
     {% endif %}
 </form>
