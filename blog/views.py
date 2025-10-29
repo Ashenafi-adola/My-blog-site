@@ -4,6 +4,7 @@ from .models import Post, Comment
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 def register(request):
     page = 'register'
@@ -43,7 +44,13 @@ def signout(request):
 
 
 def home(request):
-    posts = Post.objects.all()
+    search = request.GET.get('search') if request.GET.get('search') != None else ''
+
+    posts = Post.objects.filter(
+        Q(title__icontains = search)|
+        Q(publication_date__icontains = search)|
+        Q(content__icontains = search)
+    )
     context = {
         "posts":posts,
     }
