@@ -4,10 +4,16 @@ Create Post
 {% endblock %}
 
 {% block content %}
+<style>
+    img{
+        height: 300px;
+    }
+</style>
 <div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.as_p}}
+        <img src="{{ post.photo.url }}" alt="image">
         <button type="submit">Submit</button>
     </form>
 </div>

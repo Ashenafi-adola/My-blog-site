@@ -95,7 +95,7 @@ def edit_post(request,pk):
             return redirect(f'/view-post/{pk}')
     context = {
         'form':form,
-
+        'post':post
     }
     return render(request, 'blog/post.html', context)
 
