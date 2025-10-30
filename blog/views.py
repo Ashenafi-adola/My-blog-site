@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-
+import os
 def register(request):
     page = 'register'
     form = UserCreationForm()
@@ -109,7 +109,9 @@ def edit_post(request,pk):
 
 def delete_post(request,pk):
     post = Post.objects.get(id=pk)
+    file_path = f'D:/Django/Learn Django/mysite/{post.photo}'
     if request.method == 'POST':
+        os.remove(file_path)
         post.delete()
         return redirect('home')
 
