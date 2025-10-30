@@ -40,12 +40,12 @@ def signin(request):
 
 def signout(request):
     logout(request)
-    return redirect('signin')
+    return redirect('home')
 
 
 def home(request):
+    page = 'home'
     search = request.GET.get('search') if request.GET.get('search') != None else ''
-
     posts = Post.objects.filter(
         Q(title__icontains = search)|
         Q(publication_date__icontains = search)|
@@ -53,6 +53,7 @@ def home(request):
     )
     context = {
         "posts":posts,
+        'page':page
     }
     return render(request, 'blog/home.html',context)
 
