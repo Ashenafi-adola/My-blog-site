@@ -13,7 +13,6 @@
         width: 100%;
     }
     .photo{
-        height: auto;
         margin: 2px;
         border: solid rgb(197, 197, 197) 1px;
         box-shadow: 1px 2px 4px;
@@ -23,12 +22,11 @@
         border: solid rgb(197, 197, 197) 1px;
         padding: 3px;
         box-shadow: 1px 2px 4px;
-        height: auto;
+        height: 100%;
     }
     .post-content{
         border: solid rgb(197, 197, 197) 1px;
-        height:0vmax;
-    
+        height:0vmax;    
     }
     #id_content{
         height: 40px;
@@ -53,6 +51,11 @@
     label{
         display: none;
     }
+    .placeholder{
+        height: 200px;
+        width: 100%;
+        border: solid black 1px;
+    }
 </style>
 <div class="main container-fluid row">
     <div class="post">
@@ -61,6 +64,8 @@
             <small>posted on {{post.publication_date}}</small>
             <div class="photo">
                 <img src="{{ post.photo.url }}" alt="post" class="postphoto">
+                <button>👍</button>
+                <button>👎</button>
             </div>
             <p>{{post.content}}</p>
             {% if request.user == post.author %}
@@ -70,6 +75,7 @@
                 </div>
             {% endif %}
         </div>
+        
     </div>
     <div class="comment-section">
             {% if user.is_authenticated %}

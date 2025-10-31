@@ -95,10 +95,11 @@ def view_post(request,pk):
 def edit_post(request,pk):
     post = Post.objects.get(id=pk)
     form = PostForm(instance=post)
-
+    file_path = f'D:/Django/Learn Django/mysite/{post.photo}'
     if request.method == 'POST':
         form = PostForm(request.POST,request.FILES, instance=post)
         if form.is_valid():
+            os.remove(file_path)
             form.save()
             return redirect(f'/view-post/{pk}')
     context = {

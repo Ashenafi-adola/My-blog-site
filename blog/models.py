@@ -21,3 +21,9 @@ class Comment(models.Model):
     
     def __str__(self):
         return f"{self.content[:30]}"
+
+class Reaction(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.IntegerField()
+    dislike = models.IntegerField()
